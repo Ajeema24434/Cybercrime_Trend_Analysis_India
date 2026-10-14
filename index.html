@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cyber Crime Trend Analysis & Forecasting — India</title>
+  
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="./src/style.css">
+</head>
+<body>
+
+<!-- Aurora Gradient Background Glows -->
+<div class="aurora">
+  <div class="blob b1"></div>
+  <div class="blob b2"></div>
+  <div class="blob b3"></div>
+  <div class="blob b4"></div>
+</div>
+
+<!-- Header / Sticky Nav -->
+<header>
+  <div class="nav-wrap">
+    <div class="brand">
+      <span class="logo">CX</span>
+      <span>Cyber Crime Analytics</span>
+    </div>
+    <nav id="navlinks">
+      <a href="#overview" class="nav-link active">Overview</a>
+      <a href="#trend" class="nav-link">National Trend</a>
+      <a href="#states" class="nav-link">State-wise</a>
+      <a href="#crimehead" class="nav-link">Crime Heads</a>
+      <a href="#forecast" class="nav-link">Forecast & Simulator</a>
+      <a href="#insights" class="nav-link">Key Insights</a>
+      <button id="btn-open-tech-modal" class="nav-btn">Models & Tech</button>
+    </nav>
+  </div>
+</header>
+
+<main>
+
+  <!-- Hero / Overview Section -->
+  <section id="overview" class="hero">
+    <div class="eyebrow"><span class="dot"></span>NCRB / Ministry of Home Affairs — Official 2020–2024 Data</div>
+    <h1>Cyber crime in India is accelerating. <span class="grad">Here's exactly how fast.</span></h1>
+    <p class="sub">Registered cybercrime cases, state-wise concentration, crime-head composition, and a trend-based forecast through 2027 — built on official NCRB figures.</p>
+    
+    <div class="grid grid-4" id="heroStats">
+      <div class="card stat">
+        <div class="num">1,01,928</div>
+        <div class="label">Registered cases, 2024</div>
+        <span class="tag up">+17.94% vs 2023</span>
+      </div>
+      <div class="card stat">
+        <div class="num">+103.71%</div>
+        <div class="label">Growth, 2020 → 2024</div>
+        <span class="tag info">5-year increase</span>
+      </div>
+      <div class="card stat">
+        <div class="num">1,40,066</div>
+        <div class="label">Projected cases, 2027</div>
+        <span class="tag warn">Linear trend estimate</span>
+      </div>
+      <div class="card stat">
+        <div class="num">0.949</div>
+        <div class="label">Model R² (2020–2024 fit)</div>
+        <span class="tag info">5 data points only</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- National Trend Section -->
+  <section id="trend">
+    <div class="eyebrow"><span class="dot"></span>National Trend</div>
+    <h2>Cases have more than doubled since 2020</h2>
+    <p class="lede">From 50,035 registered cases in 2020 to 101,928 in 2024 — a 103.71% increase in five years.</p>
+    
+    <div class="grid grid-2">
+      <div class="card chart-card">
+        <h3>Registered cases, 2020–2024</h3>
+        <div class="sub">National total, NCRB</div>
+        <div class="canvas-box">
+          <canvas id="trendChart"></canvas>
+        </div>
+      </div>
+      <div class="card chart-card">
+        <h3>Year-on-year growth</h3>
+        <div class="sub">% change vs previous year</div>
+        <div class="canvas-box">
+          <canvas id="yoyChart"></canvas>
+        </div>
+      </div>
+    </div>
+    <p class="lede callout-note">2023 was the sharpest jump — a 31.15% rise over 2022. Growth stayed positive into 2024, though at a slower rate of 17.94%.</p>
+  </section>
+
+  <!-- State-wise Section -->
+  <section id="states">
+    <div class="eyebrow"><span class="dot"></span>State-wise Breakdown (2024)</div>
+    <h2>Where it's concentrated</h2>
+    <p class="lede">The top 5 states account for roughly 75% of all registered cases nationally — cyber crime in India is not evenly spread.</p>
+    
+    <div class="grid grid-2">
+      <div class="card chart-card">
+        <div class="card-header-flex">
+          <div>
+            <h3>Top 10 states / UTs</h3>
+            <div class="sub">Registered cases, 2024</div>
+          </div>
+          <input type="text" id="stateSearchInput" class="table-search-input" placeholder="Filter state...">
+        </div>
+        <div class="canvas-box">
+          <canvas id="stateChart"></canvas>
+        </div>
+      </div>
+      
+      <div class="card table-card">
+        <div class="table-container">
+          <table id="stateTable">
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>State / UT</th>
+                <th>Cases</th>
+                <th>Share</th>
+              </tr>
+            </thead>
+            <tbody id="stateTableBody">
+              <!-- Dynamically rendered -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Crime Head Section -->
+  <section id="crimehead">
+    <div class="eyebrow"><span class="dot"></span>Crime Head Breakdown (2024)</div>
+    <h2>What kind of crime it actually is</h2>
+    <p class="lede">Computer-related offences, fraud, and cheating together make up 84.35% of all registered cases.</p>
+    
+    <div class="grid grid-2">
+      <div class="card chart-card">
+        <h3>Share by crime head</h3>
+        <div class="sub">2024, All-India</div>
+        <div class="canvas-box">
+          <canvas id="crimeHeadChart"></canvas>
+        </div>
+      </div>
+      
+      <div class="card table-card">
+        <div class="table-container">
+          <table id="crimeHeadTable">
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>Crime Head</th>
+                <th>Cases</th>
+                <th>Share</th>
+              </tr>
+            </thead>
+            <tbody id="crimeHeadTableBody">
+              <!-- Dynamically rendered -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Forecast & Interactive Simulator Section -->
+  <section id="forecast">
+    <div class="eyebrow"><span class="dot"></span>Predictive Forecast & Simulator</div>
+    <h2>Where the trend points next</h2>
+    <p class="lede">A linear trend model fitted on 2020–2024, projected to 2027. Simple by design — five yearly points can't support more.</p>
+    
+    <div class="grid grid-2-1">
+      <div class="card chart-card">
+        <h3>Projected registered cases, 2025–2027</h3>
+        <div class="sub">Solid = actual · dashed = projected · shaded = ±7.44% error band</div>
+        
+        <div class="canvas-box-lg">
+          <canvas id="forecastChart"></canvas>
+        </div>
+        
+        <div class="badge-row">
+          <div class="badge"><div class="v">R² = 0.949</div><div class="l">Linear fit on 5 historical points</div></div>
+          <div class="badge"><div class="v">+13,723 / yr</div><div class="l">Estimated annual trend</div></div>
+          <div class="badge"><div class="v">7.44% error</div><div class="l">Back-test: 2020–23 model vs actual 2024</div></div>
+        </div>
+        
+        <p class="disclaimer">Forecast values (2025: 112,620 · 2026: 126,343 · 2027: 140,066) are the student's analytical estimates, not an official Government forecast. A high R² on only five annual points reflects a strong historical fit, not proof of future accuracy — reporting behaviour, policing capacity, and new scam patterns can all shift the real trajectory.</p>
+      </div>
+
+      <!-- Interactive Scenario Simulator Card -->
+      <div class="card simulator-card">
+        <h3>Interactive Forecast Simulator</h3>
+        <p class="sub">Drag the slider to test different annual case growth rates ($b$)</p>
+        
+        <div class="sim-controls">
+          <div class="sim-label-row">
+            <span>Annual Case Increase:</span>
+            <strong id="sim-slope-val" class="sim-slope-highlight">+13,723 / yr</strong>
+          </div>
+          <input type="range" id="sim-slider" min="5000" max="25000" step="500" value="13723">
+          <div class="sim-ticks">
+            <span>+5K (Slow)</span>
+            <span>+13.7K (Baseline)</span>
+            <span>+25K (Rapid)</span>
+          </div>
+        </div>
+
+        <div class="sim-results">
+          <div class="sim-res-box">
+            <span class="sim-res-title">2025 Projected</span>
+            <span class="sim-res-num" id="sim-val-2025">112,620</span>
+          </div>
+          <div class="sim-res-box">
+            <span class="sim-res-title">2026 Projected</span>
+            <span class="sim-res-num" id="sim-val-2026">126,343</span>
+          </div>
+          <div class="sim-res-box highlight">
+            <span class="sim-res-title">2027 Projected</span>
+            <span class="sim-res-num" id="sim-val-2027">140,066</span>
+          </div>
+        </div>
+
+        <button id="btn-reset-sim" class="btn-secondary-sm">Reset to Baseline Model</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Insights Section -->
+  <section id="insights">
+    <div class="eyebrow"><span class="dot"></span>Key Findings</div>
+    <h2>What the data actually shows</h2>
+    
+    <div class="insight-grid">
+      <div class="card insight-card">
+        <div class="num">+103.71%</div>
+        <p>Registered cybercrime cases roughly doubled between 2020 and 2024.</p>
+      </div>
+      <div class="card insight-card rose">
+        <div class="num">Telangana</div>
+        <p>Highest 2024 case count at 27,230, ahead of Karnataka at 21,993.</p>
+      </div>
+      <div class="card insight-card amber">
+        <div class="num">75.15%</div>
+        <p>Share of the national 2024 total held by just the top 5 states.</p>
+      </div>
+      <div class="card insight-card teal">
+        <div class="num">84.35%</div>
+        <p>Share of 2024 cases from computer-related offences, fraud, and cheating combined.</p>
+      </div>
+    </div>
+    <p class="source-tag">Source: NCRB-based data via Ministry of Home Affairs / PIB release (21 July 2026); Crime in India 2024, National Crime Records Bureau.</p>
+  </section>
+
+</main>
+
+<footer>
+  <p>Built on official NCRB & MHA data · Forecast is an academic estimate, not a Government projection</p>
+</footer>
+
+<!-- Models & Languages Modal -->
+<div id="techModal" class="modal-overlay">
+  <div class="modal-card">
+    <div class="modal-header">
+      <div>
+        <h3>Models & Programming Languages Used</h3>
+        <p class="sub">Full technical specification of algorithms and tools</p>
+      </div>
+      <button id="btn-close-modal" class="modal-close-btn">&times;</button>
+    </div>
+
+    <div class="modal-body">
+      <!-- Section 1: Predictive Model -->
+      <div class="modal-tech-box">
+        <div class="modal-tech-title">
+          <span class="icon-tag">ML Model</span>
+          <strong>Ordinary Least Squares (OLS) Linear Regression Trend Model</strong>
+        </div>
+        <p>A simple linear trend model $y = a + bx$ was selected because the available national historical series contains five annual points (2020–2024). It fits a linear trend rate of <strong>+13,723 cases per year</strong> with a high fit score of <strong>R² = 0.949</strong>.</p>
+        <div class="modal-metrics-flex">
+          <div class="m-chip"><span>Model Formula:</span> <strong>y = a + bx</strong></div>
+          <div class="m-chip"><span>Annual Trend (b):</span> <strong>+13,723 cases/yr</strong></div>
+          <div class="m-chip"><span>Backtest Error:</span> <strong>7.44% MAPE</strong></div>
+        </div>
+      </div>
+
+      <!-- Section 2: Data Science Languages & Tools -->
+      <div class="modal-tech-box">
+        <div class="modal-tech-title">
+          <span class="icon-tag tag-purple">Report Stack</span>
+          <strong>Data Analysis & Machine Learning Stack (Report Execution)</strong>
+        </div>
+        <div class="modal-grid-2">
+          <div class="modal-item">
+            <strong>Python 3.x</strong>
+            <span>Primary programming language for data extraction & cleaning.</span>
+          </div>
+          <div class="modal-item">
+            <strong>Pandas & NumPy</strong>
+            <span>Data structures, filtering, YoY growth calculation & matrix math.</span>
+          </div>
+          <div class="modal-item">
+            <strong>Scikit-Learn / NumPy fit</strong>
+            <span>Linear regression model implementation and 2024 backtesting.</span>
+          </div>
+          <div class="modal-item">
+            <strong>Matplotlib & Seaborn</strong>
+            <span>Exploratory visualization of annual trends and distributions.</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Section 3: Web Dashboard Stack -->
+      <div class="modal-tech-box">
+        <div class="modal-tech-title">
+          <span class="icon-tag tag-teal">Web Stack</span>
+          <strong>Interactive Dashboard Frontend Technologies</strong>
+        </div>
+        <div class="modal-grid-2">
+          <div class="modal-item">
+            <strong>HTML5 & CSS3</strong>
+            <span>Aurora light gradient theme, glassmorphism cards & responsive grid.</span>
+          </div>
+          <div class="modal-item">
+            <strong>JavaScript (ES6+)</strong>
+            <span>Dynamic search filtering, live slider scenario simulator & DOM events.</span>
+          </div>
+          <div class="modal-item">
+            <strong>Chart.js 4.4</strong>
+            <span>Dynamic canvas charts for trend, bar, doughnut & error band curves.</span>
+          </div>
+          <div class="modal-item">
+            <strong>Google Fonts (Sora & Inter)</strong>
+            <span>Modern typography system for clean legibility.</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal-footer">
+      <button id="btn-ack-modal" class="btn-modal-primary">Got it</button>
+    </div>
+  </div>
+</div>
+
+<script type="module" src="./src/app.js"></script>
+</body>
+</html>
